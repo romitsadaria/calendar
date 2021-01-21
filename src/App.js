@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { Router, Switch } from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { history } from './_helpers/history';
+import PublicRoute from './_routers/PublicRoute';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Calender from './component/calender/calender';
+import Events from './component/calender/events';
+
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#4285F4' },
+    secondary: { main: '#4285F4' },
+    danger: { main: '#ac2925' },
+  },
+});
+
+class App extends Component {
+
+  render() {
+    return (
+      <div className="h-100">
+        <MuiThemeProvider theme={theme}>
+          <Router history={history} >
+            <Switch>
+              <PublicRoute exact path="/" component={Calender} />
+              <PublicRoute exact path="/event/:date" component={Events} />
+            </Switch>
+          </Router>
+        </MuiThemeProvider>
+      </div>
+    );
+  }
 }
 
-export default App;
+
+export default App
